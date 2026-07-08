@@ -8,7 +8,7 @@
 
 ## Sobre o Projeto
 
-Sistema de Gerenciamento de Energia (EMS) em MicroPython para microredes. Resolve a telemetria de conversores bidirecionais atuando com um ESP32-C3 na borda (leitura UART e envio UDP)[cite: 11]. O núcleo é um Raspberry Pi Pico 2 W operando como servidor central assíncrono (uasyncio), hospedando uma API REST para supervisão de potência em tempo real[cite: 10].
+Sistema de Gerenciamento de Energia (EMS) em MicroPython para microredes. Resolve a telemetria de conversores bidirecionais atuando com um ESP32-C3 na borda (leitura UART e envio UDP). O núcleo é um Raspberry Pi Pico 2 W operando como servidor central assíncrono (uasyncio), hospedando uma API REST para supervisão de potência em tempo real.
 
 ## Arquitetura do Sistema
 
@@ -29,10 +29,10 @@ O projeto é estruturado em duas camadas complementares, separando estritamente 
 O repositório é composto pelos dois scripts fundamentais que operam nas pontas da arquitetura embarcada:
 
 * **`conexao_uart_wifi_esp_2.py` (Nó Inversor - ESP32-C3):**
-  [cite_start]Código responsável pela aquisição e transmissão de dados na borda[cite: 78]. [cite_start]Ele gerencia a interface serial para decodificar os dados do DSP C2000, aplica o fator de calibração do transdutor (`FATOR_TENSAO = 12.0 / 1.84`) e empacota os valores numéricos para envio via socket UDP[cite: 78, 81]. [cite_start]Integra o mecanismo de *watchdog* (`falhas_de_rede`) que monitora o *link* de comunicação e executa o *reset* autônomo da interface de rádio em caso de falhas[cite: 80].
+  Código responsável pela aquisição e transmissão de dados na borda. Ele gerencia a interface serial para decodificar os dados do DSP C2000, aplica o fator de calibração do transdutor (`FATOR_TENSAO = 12.0 / 1.84`) e empacota os valores numéricos para envio via socket UDP. Integra o mecanismo de *watchdog* (`falhas_de_rede`) que monitora o *link* de comunicação e executa o *reset* autônomo da interface de rádio em caso de falhas.
 
 * **`servidor_ap_recebimento.py` (Servidor EMS - Pico 2 W):**
-  Núcleo lógico do sistema. [cite_start]Configura o microcontrolador como *Access Point* (AP) fixo no canal 6 e inicializa o servidor de gerenciamento[cite: 84, 85]. [cite_start]Utiliza concorrência assíncrona para executar simultaneamente a escuta contínua de pacotes UDP na porta 5005 (`udp_listener`), a varredura e limpeza de nós inativos (`cleanup_offline_clients`) e a hospedagem da API REST HTTP (`serve_http`) para a interface de supervisão[cite: 84, 87, 88].
+  Núcleo lógico do sistema. Configura o microcontrolador como *Access Point* (AP) fixo no canal 6 e inicializa o servidor de gerenciamento. Utiliza concorrência assíncrona para executar simultaneamente a escuta contínua de pacotes UDP na porta 5005 (`udp_listener`), a varredura e limpeza de nós inativos (`cleanup_offline_clients`) e a hospedagem da API REST HTTP (`serve_http`) para a interface de supervisão.
 
 ## Pré-requisitos
 
