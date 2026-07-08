@@ -24,7 +24,7 @@ O projeto é estruturado em duas camadas complementares, separando estritamente 
 * **Watchdog de Rede:** O ESP32 implementa um algoritmo de contingência (`falhas_de_rede`). Caso o envio UDP falhe consecutivamente (queda do servidor AP), o nó reinicia sua interface de rádio via software para garantir a reconexão automática sem intervenção manual.
 * **Controle Assíncrono:** Toda a lógica de software, especialmente no servidor EMS, é orquestrada pela biblioteca `uasyncio`. Isso permite que a escuta de datagramas, a exclusão de nós *offline* e o atendimento das requisições web ocorram de forma concorrente, garantindo que o bloqueio de I/O não afete o determinismo da rede.
 
-* ## Estrutura de Arquivos
+## Estrutura de Arquivos
 
 O repositório é composto pelos dois scripts fundamentais que operam nas pontas da arquitetura embarcada:
 
@@ -34,7 +34,7 @@ O repositório é composto pelos dois scripts fundamentais que operam nas pontas
 * **`servidor_ap_recebimento.py` (Servidor EMS - Pico 2 W):**
   Núcleo lógico do sistema. [cite_start]Configura o microcontrolador como *Access Point* (AP) fixo no canal 6 e inicializa o servidor de gerenciamento[cite: 84, 85]. [cite_start]Utiliza concorrência assíncrona para executar simultaneamente a escuta contínua de pacotes UDP na porta 5005 (`udp_listener`), a varredura e limpeza de nós inativos (`cleanup_offline_clients`) e a hospedagem da API REST HTTP (`serve_http`) para a interface de supervisão[cite: 84, 87, 88].
 
-  ## Pré-requisitos
+## Pré-requisitos
 
 Para a correta execução e depuração dos códigos embarcados, as seguintes ferramentas e dependências de software são requeridas:
 
